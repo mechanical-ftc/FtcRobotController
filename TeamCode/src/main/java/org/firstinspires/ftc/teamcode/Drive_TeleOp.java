@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
@@ -32,7 +33,7 @@ public class Drive_TeleOp extends OpMode {
 
     private DcMotor intake = null;
 
-
+    private CRServo intakeservo = null;
 
 
     @Override
@@ -56,6 +57,7 @@ public class Drive_TeleOp extends OpMode {
 
         intake = hardwareMap.get(DcMotor.class,"I");
 
+        intakeservo = hardwareMap.get(CRServo.class, "Iservo");
 
 
 
@@ -67,9 +69,13 @@ public class Drive_TeleOp extends OpMode {
 
         // Since one motor is reversed in relation to the other, we must reverse the motor on the right so positive powers mean forward.
         BlMotor.setDirection(DcMotor.Direction.FORWARD);
-        FlMotor.setDirection(DcMotor.Direction.REVERSE);
+        FlMotor.setDirection(DcMotor.Direction.FORWARD);
         BrMotor.setDirection(DcMotor.Direction.REVERSE);
-        FrMotor.setDirection(DcMotor.Direction.FORWARD);
+        FrMotor.setDirection(DcMotor.Direction.REVERSE);
+
+
+        liftRight.setDirection(DcMotor.Direction.REVERSE);
+        liftLeft.setDirection(DcMotor.Direction.FORWARD);
 
 
         BlMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -133,11 +139,11 @@ public class Drive_TeleOp extends OpMode {
         //
 
         if (gamepad2.left_stick_y > 0.1) {
-            liftRight.setPower(gamepad1.left_stick_y);
-            liftLeft.setPower(gamepad1.left_stick_y);
-        } else if (gamepad2.left_stick_y > -0.1) {
-            liftRight.setPower(gamepad1.left_stick_y);
-            liftLeft.setPower(gamepad1.left_stick_y);
+            liftRight.setPower(gamepad2.left_stick_y);
+            liftLeft.setPower(gamepad2.left_stick_y);
+        } else if (gamepad2.left_stick_y < -0.1) {
+            liftRight.setPower(gamepad2.left_stick_y);
+            liftLeft.setPower(gamepad2.left_stick_y);
         } else {
             liftRight.setPower(0);
             liftLeft.setPower(0);
@@ -166,10 +172,13 @@ public class Drive_TeleOp extends OpMode {
             intake.setPower(0);
         }
 
-
-
-
-
+        if (gamepad2.right_stick_y > 0.1){
+            intakeservo.setPower(gamepad2.right_stick_y);
+        } else if (gamepad2.right_stick_y < -0.1) {
+            intakeservo.setPower(gamepad2.right_stick_y);
+        }else {
+            intakeservo.setPower(0);
+        }
     }
 
 
