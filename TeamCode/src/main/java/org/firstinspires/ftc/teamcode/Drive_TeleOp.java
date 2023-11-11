@@ -7,10 +7,12 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.android.navx_ftc.src.main.java.com.kauailabs.navx.ftc.AHRS;
+
 
 @TeleOp(name="TeleOP")
 public class Drive_TeleOp extends OpMode {
-
+    private AHRS compass = null;
 
     private ElapsedTime runtime = new ElapsedTime();
     public DcMotor FlMotor;
@@ -35,6 +37,7 @@ public class Drive_TeleOp extends OpMode {
 
     private CRServo intakeservo = null;
 
+    private DcMotor Suspension = null;
 
     @Override
     public void init() {
@@ -58,6 +61,9 @@ public class Drive_TeleOp extends OpMode {
         intake = hardwareMap.get(DcMotor.class,"I");
 
         intakeservo = hardwareMap.get(CRServo.class, "Iservo");
+
+        Suspension = hardwareMap.get(DcMotor.class,"Sus");
+
 
 
 
@@ -95,6 +101,11 @@ public class Drive_TeleOp extends OpMode {
         FrMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         BrMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        liftLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        liftRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        Suspension.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
 
         FlMotor.setPower(0);
         FrMotor.setPower(0);
@@ -116,16 +127,25 @@ public class Drive_TeleOp extends OpMode {
     @Override
     public void loop() {
 
-        double speed = Math.sqrt(2) * Math.pow(Math.pow(gamepad1.left_stick_x, 4) + Math.pow(-gamepad1.left_stick_y, 4), 0.5);
-        double angle = Math.atan2(gamepad1.left_stick_y, gamepad1.left_stick_x);
-        double rotation = Math.signum(gamepad1.right_stick_x) * Math.pow(gamepad1.right_stick_x, 2);
+        double left_stick_x = gamepad1.left_stick_x;
+        double left_stick_y = gamepad1.left_stick_y;
+        double right_stick_x = gamepad1.right_stick_x;
+//        double left_stick_x = .5;
+//        double left_stick_y = -.5;
+//        double right_stick_x = 0;
+
+        double speed = Math.sqrt(2) * Math.pow(Math.pow(left_stick_x, 4) + Math.pow(-left_stick_y, 4), 0.5);
+        double angle = Math.atan2(-left_stick_y, left_stick_x);
+        double rotation = Math.signum(right_stick_x) * Math.pow(right_stick_x, 2);
 
         float primaryDiagonalSpeed = (float) (speed * Math.sin(angle - (Math.PI / 4.0)));
         float secondaryDiagonalSpeed = (float) (speed * Math.cos(angle - (Math.PI / 4.0)));
 
+        telemetry.addData("secondaryDiagonalSpeed: ", secondaryDiagonalSpeed);
+        telemetry.addData("primaryDiagonalSpeed", primaryDiagonalSpeed);
         BlMotor.setPower(secondaryDiagonalSpeed - rotation);
-        FrMotor.setPower(secondaryDiagonalSpeed - rotation);
-        FlMotor.setPower(primaryDiagonalSpeed + rotation);
+        FrMotor.setPower(secondaryDiagonalSpeed + rotation);
+        FlMotor.setPower(primaryDiagonalSpeed - rotation);
         BrMotor.setPower(primaryDiagonalSpeed + rotation);
 
 
@@ -139,25 +159,30 @@ public class Drive_TeleOp extends OpMode {
         //
 
         if (gamepad2.left_stick_y > 0.1) {
-            liftRight.setPower(gamepad2.left_stick_y);
-            liftLeft.setPower(gamepad2.left_stick_y);
+            liftRight.setPower(-0.4);
+            liftLeft.setPower(-0.4);
+            Suspension.setPower(-1);
         } else if (gamepad2.left_stick_y < -0.1) {
-            liftRight.setPower(gamepad2.left_stick_y);
-            liftLeft.setPower(gamepad2.left_stick_y);
+            liftRight.setPower(0.4);
+            liftLeft.setPower(0.4);
+            Suspension.setPower(1);
+
         } else {
             liftRight.setPower(0);
             liftLeft.setPower(0);
+            Suspension.setPower(0);
+
         }
 
         if (gamepad2.a) {
-            servo1.setPower(0.6);
-            servo2.setPower(0.6);
-            servo3.setPower(0.6);
+            servo1.setPower(0.3);
+            servo2.setPower(0.3);
+            servo3.setPower(0.3);
 
         }else if (gamepad2.y) {
-            servo1.setPower(-0.6);
-            servo2.setPower(-0.6);
-            servo3.setPower(-0.6);
+            servo1.setPower(-0.3);
+            servo2.setPower(-0.3);
+            servo3.setPower(-0.3);
         }else {
             servo1.setPower(0);
             servo2.setPower(0);
@@ -179,7 +204,20 @@ public class Drive_TeleOp extends OpMode {
         }else {
             intakeservo.setPower(0);
         }
+
+        if (gamepad2.dpad_up) {
+            Suspension.setPower(1);
+        } else if (gamepad2.dpad_down) {
+            Suspension.setPower(-1);
+        }else {
+            Suspension.setPower(0);
+        }
+
+        {
+
+        }
     }
+
 
 
 }
