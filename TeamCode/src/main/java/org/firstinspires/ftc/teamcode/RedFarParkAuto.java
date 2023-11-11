@@ -1,21 +1,12 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-
-@Autonomous(name="test", group="chad")
-public class testyy extends LinearOpMode {
+@Autonomous(name="RedFarPark", group="chad")
+public class RedFarParkAuto extends LinearOpMode {
     //
 
 
@@ -114,18 +105,19 @@ public class testyy extends LinearOpMode {
 
         waitForStart();
         //
-        moveToPosition(-43, 0.2);
-        strafeToPosition(-55,0.2);
-        Lifty(11,0.1);
-        sleep(2000);
-        disy(0.2);
-        sleep(500);
-        Lifty(-1,0.1);
-        sleep(500);
-        Lifty(1,.1);
-        sleep(1000);
-        disy(.2);
-        sleep(500);
+        strafeToPosition(-5,0.2);
+        moveToPosition(-90, 0.2);
+//        Lifty(11,0.1);
+//        sleep(2000);
+//        disy(0.2);
+//        sleep(500);
+//        Lifty(-13,0.2);
+//        sleep(1000);
+        turnWithEncoder(-5);
+        sleep(  150);
+        moveToPosition(-20, 0.2);
+
+
 	//
     }
     //
@@ -248,4 +240,7 @@ public class testyy extends LinearOpMode {
         servo3.setPower(speed);
     }
     //
+
+    public static class RedFarPark {
+    }
 }
