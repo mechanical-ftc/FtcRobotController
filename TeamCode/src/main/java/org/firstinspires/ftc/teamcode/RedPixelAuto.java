@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @Autonomous(name="RedPixel", group="chad")
 public class RedPixelAuto extends LinearOpMode {
@@ -17,7 +18,6 @@ public class RedPixelAuto extends LinearOpMode {
     private DcMotor backright = null;
 
     private DcMotor liftLeft = null;
-    private DcMotor liftRight =  null;
 
     private CRServo servo1 = null;
     private CRServo servo2 = null;
@@ -50,7 +50,6 @@ public class RedPixelAuto extends LinearOpMode {
         frontright = hardwareMap.get(DcMotor.class, "Fr");
 
         liftLeft = hardwareMap.get(DcMotor.class,"Ll");
-        liftRight = hardwareMap.get(DcMotor.class,"Rl");
 
         servo1 = hardwareMap.get(CRServo.class, "S1");
         servo2 = hardwareMap.get(CRServo.class, "S2");
@@ -63,13 +62,12 @@ public class RedPixelAuto extends LinearOpMode {
         Suspension = hardwareMap.get(DcMotor.class,"Sus");
 
 
-        backleft.setDirection(DcMotor.Direction.FORWARD);
-        frontleft.setDirection(DcMotor.Direction.FORWARD);
-        backright.setDirection(DcMotor.Direction.REVERSE);
-        frontright.setDirection(DcMotor.Direction.REVERSE);
+        backleft.setDirection(DcMotor.Direction.REVERSE);
+        frontleft.setDirection(DcMotor.Direction.REVERSE);
+        backright.setDirection(DcMotor.Direction.FORWARD);
+        frontright.setDirection(DcMotor.Direction.FORWARD);
 
 
-        liftRight.setDirection(DcMotor.Direction.REVERSE);
         liftLeft.setDirection(DcMotor.Direction.FORWARD);
 
 
@@ -91,7 +89,6 @@ public class RedPixelAuto extends LinearOpMode {
         backright.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         liftLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        liftRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         Suspension.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -106,18 +103,18 @@ public class RedPixelAuto extends LinearOpMode {
         waitForStart();
         //
         moveToPosition(-43, 0.2);
-        strafeToPosition(-55,0.2);
-        Lifty(11,0.1);
-        sleep(2000);
-        disy(0.2);
-        sleep(500);
+        strafeToPosition(55,0.2);
+        Lifty(17,0.4);
+        sleep(5000);
+        disy(-0.4);
+        sleep(4000);
 //        Lifty(-1,0.1);
 //        sleep(500);
 //        Lifty(1,.1);
 //        sleep(1000);
-        disy(.2);
-        sleep(500);
-        Lifty(-10, 0.1);
+        disy(-0.6);
+        sleep(2000);
+        Lifty(-18, 0.5);
 	//
     }
     //
@@ -215,22 +212,15 @@ public class RedPixelAuto extends LinearOpMode {
         int move = (int)(Math.round(inches * cpi * meccyBias));
 
         liftLeft.setTargetPosition(liftLeft.getCurrentPosition() + move);
-        liftRight.setTargetPosition(liftRight.getCurrentPosition() + move);
 
         //
         liftLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        liftRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         //
         liftLeft.setPower(speed);
-        liftRight.setPower(speed);
 
         //
-        while (liftLeft.isBusy() && liftRight.isBusy() ){}
-        liftRight.setPower(0);
-        liftLeft.setPower(0);
 
-        return;
 
     }
 

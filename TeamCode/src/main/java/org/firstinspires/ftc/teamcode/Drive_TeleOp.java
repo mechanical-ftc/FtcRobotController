@@ -32,6 +32,9 @@ public class Drive_TeleOp extends OpMode {
     private CRServo servo1 = null;
     private CRServo servo2 = null;
     private CRServo servo3 = null;
+    private CRServo servo4 = null;
+
+    private CRServo Shooter = null;
 
     private DcMotor intake = null;
 
@@ -52,11 +55,12 @@ public class Drive_TeleOp extends OpMode {
         FrMotor = hardwareMap.get(DcMotor.class, "Fr");
 
         liftLeft = hardwareMap.get(DcMotor.class,"Ll");
-        liftRight = hardwareMap.get(DcMotor.class,"Rl");
 
         servo1 = hardwareMap.get(CRServo.class, "S1");
         servo2 = hardwareMap.get(CRServo.class, "S2");
         servo3 = hardwareMap.get(CRServo.class, "S3");
+        servo4 = hardwareMap.get(CRServo.class, "SusExtend");
+        Shooter = hardwareMap.get(CRServo.class, "Shooter");
 
         intake = hardwareMap.get(DcMotor.class,"I");
 
@@ -69,19 +73,19 @@ public class Drive_TeleOp extends OpMode {
 
 
 
+
 //  SET POSITION OF OUR SERVOS EXAMPLE BELOW
 //        wideGrabber.setPosition(1);
 
 
         // Since one motor is reversed in relation to the other, we must reverse the motor on the right so positive powers mean forward.
-        BlMotor.setDirection(DcMotor.Direction.FORWARD);
-        FlMotor.setDirection(DcMotor.Direction.FORWARD);
-        BrMotor.setDirection(DcMotor.Direction.REVERSE);
-        FrMotor.setDirection(DcMotor.Direction.REVERSE);
+        BlMotor.setDirection(DcMotor.Direction.REVERSE);
+        FlMotor.setDirection(DcMotor.Direction.REVERSE);
+        BrMotor.setDirection(DcMotor.Direction.FORWARD);
+        FrMotor.setDirection(DcMotor.Direction.FORWARD);
 
 
-        liftRight.setDirection(DcMotor.Direction.REVERSE);
-        liftLeft.setDirection(DcMotor.Direction.FORWARD);
+        liftLeft.setDirection(DcMotor.Direction.REVERSE);
 
 
         BlMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -102,7 +106,6 @@ public class Drive_TeleOp extends OpMode {
         BrMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         liftLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        liftRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         Suspension.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -135,7 +138,7 @@ public class Drive_TeleOp extends OpMode {
 //        double right_stick_x = 0;
 
         double speed = Math.sqrt(2) * Math.pow(Math.pow(left_stick_x, 4) + Math.pow(-left_stick_y, 4), 0.5);
-        double angle = Math.atan2(-left_stick_y, left_stick_x);
+        double angle = Math.atan2(-left_stick_y, -left_stick_x);
         double rotation = Math.signum(right_stick_x) * Math.pow(right_stick_x, 2);
 
         float primaryDiagonalSpeed = (float) (speed * Math.sin(angle - (Math.PI / 4.0)));
@@ -143,10 +146,10 @@ public class Drive_TeleOp extends OpMode {
 
         telemetry.addData("secondaryDiagonalSpeed: ", secondaryDiagonalSpeed);
         telemetry.addData("primaryDiagonalSpeed", primaryDiagonalSpeed);
-        BlMotor.setPower(secondaryDiagonalSpeed - rotation);
-        FrMotor.setPower(secondaryDiagonalSpeed + rotation);
-        FlMotor.setPower(primaryDiagonalSpeed - rotation);
-        BrMotor.setPower(primaryDiagonalSpeed + rotation);
+        BlMotor.setPower(secondaryDiagonalSpeed + rotation);
+        FrMotor.setPower(secondaryDiagonalSpeed - rotation);
+        FlMotor.setPower(primaryDiagonalSpeed + rotation);
+        BrMotor.setPower(primaryDiagonalSpeed - rotation);
 
 
 
@@ -159,18 +162,12 @@ public class Drive_TeleOp extends OpMode {
         //
 
         if (gamepad2.left_stick_y > 0.1) {
-            liftRight.setPower(-0.4);
-            liftLeft.setPower(-0.4);
-            Suspension.setPower(-1);
+            liftLeft.setPower(0.6);
         } else if (gamepad2.left_stick_y < -0.1) {
-            liftRight.setPower(0.4);
-            liftLeft.setPower(0.4);
-            Suspension.setPower(1);
+            liftLeft.setPower(-0.6);
 
         } else {
-            liftRight.setPower(0);
             liftLeft.setPower(0);
-            Suspension.setPower(0);
 
         }
 
@@ -206,16 +203,30 @@ public class Drive_TeleOp extends OpMode {
         }
 
         if (gamepad2.dpad_up) {
-            Suspension.setPower(1);
+            servo4.setPower(1);
         } else if (gamepad2.dpad_down) {
+            servo4.setPower(-1);
+        }else {
+            servo4.setPower(0);
+        }
+
+        if (gamepad2.dpad_left) {
+            Suspension.setPower(1);
+        }else if (gamepad2.dpad_right) {
             Suspension.setPower(-1);
         }else {
             Suspension.setPower(0);
         }
 
-        {
-
+        if (gamepad1.dpad_left) {
+            Shooter.setPower(1);
+        } else if (gamepad1.dpad_right) {
+            Shooter.setPower(-1);
+        }else {
+            Shooter.setPower(0);
         }
+
+
     }
 
 
