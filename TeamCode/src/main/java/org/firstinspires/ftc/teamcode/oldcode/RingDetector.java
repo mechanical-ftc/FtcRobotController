@@ -21,14 +21,14 @@ public class RingDetector {
     private final Point BLUE_TL    = new Point(170,95);
     private final Point BLUE_BR    = new Point(240, 150);
 
-//    private final Point RED_TOP_TL     = new Point(0,135);
-//    private final Point RED_TOP_BR     = new Point(50, 165);
+    private final Point RED_TOP_TL     = new Point(0,135);
+    private final Point RED_TOP_BR     = new Point(50, 165);
 
 
-    private Point TL;
-    private Point BR;
-    //private Point bottomTL;
-    //private Point bottomBR;
+    private Point RTL;
+    private Point RBR;
+    private Point bottomTL;
+    private Point bottomBR;
 
     private RGBColor box;
 
@@ -39,18 +39,21 @@ public class RingDetector {
         int cameraMonitorViewId = opMode.hardwareMap.appContext.getResources().getIdentifier(
                 "cameraMonitorViewId", "id", opMode.hardwareMap.appContext.getPackageName());
 
-        camera = OpenCvCameraFactory.getInstance().createWebcam(opMode.hardwareMap.get(WebcamName.class, "Webcam"), cameraMonitorViewId);
+        camera = OpenCvCameraFactory.getInstance().createWebcam(opMode.hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
 
         pipeline = new CustomPipeline();
         camera.openCameraDevice();
         camera.setPipeline(pipeline);
         camera.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
 
-        TL = BLUE_TL;
-        BR = BLUE_BR;
-        //gives points depending on red or blue
-        //topTL = (isRed) ? RED_TOP_TL : BLUE_TOP_TL;
-        //topBR = (isRed) ? RED_TOP_BR : BLUE_TOP_BR;
+        RTL = BLUE_TL;
+        RBR = BLUE_BR;
+
+
+
+//        gives points depending on red or blue
+//        RTL = (isRed) ? RED_TOP_TL : BLUE_TL;
+//        RBR = (isRed) ? RED_TOP_BR : BLUE_BR;
 
     }
 
@@ -82,7 +85,7 @@ public class RingDetector {
         @Override
         public Mat processFrame(Mat input){
 
-            box = getAverageColor(input, TL, BR);
+            box = getAverageColor(input, RTL, RBR);
             int thickness = 3;
             //Scalar topColor = new Scalar(255,0,0);
             Scalar Color = new Scalar(255,0,0);
@@ -94,7 +97,7 @@ public class RingDetector {
                 Color = new Scalar(0,255,0);
             }
 
-            Imgproc.rectangle(input, TL, BR, Color, thickness);
+            Imgproc.rectangle(input, RTL, RBR, Color, thickness);
 
             //sendTelemetry();
 
