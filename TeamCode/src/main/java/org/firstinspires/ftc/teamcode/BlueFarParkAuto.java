@@ -50,7 +50,6 @@ public class BlueFarParkAuto extends LinearOpMode {
         frontright = hardwareMap.get(DcMotor.class, "Fr");
 
         liftLeft = hardwareMap.get(DcMotor.class,"Ll");
-        liftRight = hardwareMap.get(DcMotor.class,"Rl");
 
         servo1 = hardwareMap.get(CRServo.class, "S1");
         servo2 = hardwareMap.get(CRServo.class, "S2");
@@ -69,7 +68,6 @@ public class BlueFarParkAuto extends LinearOpMode {
         frontright.setDirection(DcMotor.Direction.REVERSE);
 
 
-        liftRight.setDirection(DcMotor.Direction.REVERSE);
         liftLeft.setDirection(DcMotor.Direction.FORWARD);
 
 
@@ -91,7 +89,6 @@ public class BlueFarParkAuto extends LinearOpMode {
         backright.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         liftLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        liftRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         Suspension.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -215,19 +212,15 @@ public class BlueFarParkAuto extends LinearOpMode {
         int move = (int)(Math.round(inches * cpi * meccyBias));
 
         liftLeft.setTargetPosition(liftLeft.getCurrentPosition() + move);
-        liftRight.setTargetPosition(liftRight.getCurrentPosition() + move);
 
         //
         liftLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        liftRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         //
         liftLeft.setPower(speed);
-        liftRight.setPower(speed);
 
         //
-        while (liftLeft.isBusy() && liftRight.isBusy() ){}
-        liftRight.setPower(0);
+        while (liftLeft.isBusy() ){}
         liftLeft.setPower(0);
 
         return;

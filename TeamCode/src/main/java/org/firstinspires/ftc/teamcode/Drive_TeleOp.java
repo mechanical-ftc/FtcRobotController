@@ -144,6 +144,20 @@ public class Drive_TeleOp extends OpMode {
         float primaryDiagonalSpeed = (float) (speed * Math.sin(angle - (Math.PI / 4.0)));
         float secondaryDiagonalSpeed = (float) (speed * Math.cos(angle - (Math.PI / 4.0)));
 
+        double scalar = .6;
+
+        if(gamepad1.right_trigger > 0)
+        {
+            scalar = 1;
+        }
+        else if(gamepad1.right_bumper)
+        {
+            scalar = .2;
+        }
+
+        primaryDiagonalSpeed *= scalar;
+        secondaryDiagonalSpeed *= scalar;
+
         telemetry.addData("secondaryDiagonalSpeed: ", secondaryDiagonalSpeed);
         telemetry.addData("primaryDiagonalSpeed", primaryDiagonalSpeed);
         BlMotor.setPower(secondaryDiagonalSpeed + rotation);
@@ -203,20 +217,21 @@ public class Drive_TeleOp extends OpMode {
         }
 
         if (gamepad2.dpad_up) {
-            servo4.setPower(1);
-        } else if (gamepad2.dpad_down) {
             servo4.setPower(-1);
+        } else if (gamepad2.dpad_down) {
+            servo4.setPower(1);
         }else {
             servo4.setPower(0);
         }
 
-        if (gamepad2.dpad_left) {
+        if (gamepad2.left_bumper) {
             Suspension.setPower(1);
-        }else if (gamepad2.dpad_right) {
+        }else if (gamepad2.right_bumper) {
             Suspension.setPower(-1);
         }else {
             Suspension.setPower(0);
         }
+        telemetry.addData("Sus powah: ", Suspension.getPower());
 
         if (gamepad1.dpad_left) {
             Shooter.setPower(1);
