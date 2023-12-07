@@ -175,8 +175,8 @@ public class LongBlue extends LinearOpMode {
 
         @Override
         public Mat processFrame(Mat input) {
-            Point LeftTop = new Point(0,100);
-            Point LeftBottom = new Point(60, 160);
+            Point LeftTop = new Point(60,100);
+            Point LeftBottom = new Point(120, 160);
             Point MiddleTop = new Point(120, 100);
             Point MiddleBottom = new Point(200, 160);
             Point RightTop = new Point(300, 100);
@@ -238,30 +238,35 @@ public class LongBlue extends LinearOpMode {
             green /= total;
             totalBlueRight = (blue / total) -red -green;
 
-            if(totalBlueLeft > totalBlueMiddle && totalBlueLeft > totalBlueRight) {
+            if(totalBlueLeft > totalBlueRight && totalBlueLeft > totalBlueMiddle) {
                 Imgproc.rectangle(
                         input,
                         LeftTop,
                         LeftBottom,
                         new Scalar(0, 0, 255), 4);
-                position = 0;
             }
-
-            if(totalBlueMiddle > totalBlueLeft && totalBlueMiddle > totalBlueRight) {
-                Imgproc.rectangle(
-                        input,
-                        MiddleTop,
-                        MiddleBottom,
-                        new Scalar(255, 0, 255), 4);
-                position = 1;
-            }
-
-            if(totalBlueRight > totalBlueLeft && totalBlueRight > totalBlueMiddle) {
+            else if(totalBlueRight > totalBlueLeft && totalBlueRight > totalBlueMiddle){
+//                Imgproc.rectangle(
+//                        input,
+//                        MiddleTop,
+//                        MiddleBottom,
+//                        new Scalar(255, 0, 255), 4);
                 Imgproc.rectangle(
                         input,
                         RightTop,
                         RightBottom,
                         new Scalar(255, 0, 0), 4);
+            }
+
+            if(totalBlueLeft > totalBlueMiddle && totalBlueLeft > totalBlueRight) {
+                position = 0;
+            }
+
+            if(totalBlueMiddle > totalBlueLeft && totalBlueMiddle > totalBlueRight) {
+                position = 1;
+            }
+
+            if(totalBlueRight > totalBlueLeft && totalBlueRight > totalBlueMiddle) {
                 position = 2;
             }
             return input;
