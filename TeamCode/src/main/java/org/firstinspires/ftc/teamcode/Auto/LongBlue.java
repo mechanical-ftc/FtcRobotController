@@ -23,10 +23,10 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class LongBlue extends LinearOpMode {
 
     OpenCvWebcam webcam;
-    public static DcMotor FrontLeft = null;
-    public static DcMotor FrontRight = null;
-    public static DcMotor BackLeft = null;
-    public static DcMotor BackRight = null;
+//    public static DcMotor FrontLeft = null;
+//    public static DcMotor FrontRight = null;
+//    public static DcMotor BackLeft = null;
+//    public static DcMotor BackRight = null;
 //    public static DcMotor Launcher = null;
     public static int position = -1;
     public static boolean realBot = false;
@@ -38,38 +38,38 @@ public class LongBlue extends LinearOpMode {
 
         /* this is setting the name of the motor used in the code
         equal to the name of that motor in the robot configuration*/
-        FrontLeft = hardwareMap.get(DcMotor.class, "FL");
-        FrontRight = hardwareMap.get(DcMotor.class, "FR");
-        BackLeft = hardwareMap.get(DcMotor.class, "BL");
-        BackRight = hardwareMap.get(DcMotor.class, "BR");
+//        FrontLeft = hardwareMap.get(DcMotor.class, "FL");
+//        FrontRight = hardwareMap.get(DcMotor.class, "FR");
+//        BackLeft = hardwareMap.get(DcMotor.class, "BL");
+//        BackRight = hardwareMap.get(DcMotor.class, "BR");
 //        Lift = hardwareMap.get(DcMotor.class, "Lift");
 //        Claw = hardwareMap.get(DcMotor.class, "Claw");
 //        Launcher = hardwareMap.get(DcMotor.class, "PlaneLauncher");
 
         //this sets the direction that the motors spin
         if (realBot == true) {
-            FrontLeft.setDirection(DcMotor.Direction.FORWARD);
-            FrontRight.setDirection(DcMotor.Direction.REVERSE);
-            BackLeft.setDirection(DcMotor.Direction.FORWARD);
-            BackRight.setDirection(DcMotor.Direction.REVERSE);
+//            FrontLeft.setDirection(DcMotor.Direction.FORWARD);
+//            FrontRight.setDirection(DcMotor.Direction.REVERSE);
+//            BackLeft.setDirection(DcMotor.Direction.FORWARD);
+//            BackRight.setDirection(DcMotor.Direction.REVERSE);
 //        Lift.setDirection(DcMotor.Direction.FORWARD);
 //        Claw.setDirection(DcMotor.Direction.FORWARD);
 //        Launcher.setDirection(DcMotor.Direction.FORWARD);
         } else {
-            FrontLeft.setDirection(DcMotor.Direction.REVERSE);
-            FrontRight.setDirection(DcMotor.Direction.REVERSE);
-            BackLeft.setDirection(DcMotor.Direction.FORWARD);
-            BackRight.setDirection(DcMotor.Direction.FORWARD);
+//            FrontLeft.setDirection(DcMotor.Direction.REVERSE);
+//            FrontRight.setDirection(DcMotor.Direction.REVERSE);
+//            BackLeft.setDirection(DcMotor.Direction.FORWARD);
+//            BackRight.setDirection(DcMotor.Direction.FORWARD);
 //        Lift.setDirection(DcMotor.Direction.FORWARD);
 //        Claw.setDirection(DcMotor.Direction.FORWARD);
 //        Launcher.setDirection(DcMotor.Direction.FORWARD);
         }
 
         //this resets the encoders to zero, so that the recordings are accurate
-        FrontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        FrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        BackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        BackRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        FrontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        FrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        BackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        BackRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //        Lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //        Claw.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //        Launcher.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -77,26 +77,26 @@ public class LongBlue extends LinearOpMode {
 
         /*this sets up the movement so that anytime the motors are used
         it will use encoders*/
-        FrontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        FrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        BackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        BackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        FrontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        FrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        BackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        BackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //        Lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //        Claw.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //        Launcher.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
         //this sets the motors to immediately brake when power is zero
-        FrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        FrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        BackLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        BackRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+//        FrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+//        FrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+//        BackLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+//        BackRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
         //this makes sure that the motor do not move before they are set to
-        FrontLeft.setPower(0);
-        FrontRight.setPower(0);
-        BackLeft.setPower(0);
-        BackRight.setPower(0);
+//        FrontLeft.setPower(0);
+//        FrontRight.setPower(0);
+//        BackLeft.setPower(0);
+//        BackRight.setPower(0);
 //        Lift.setPower(0);
 //        Claw.setPower(0);
 //        Launcher.setPower(0);
@@ -179,8 +179,8 @@ public class LongBlue extends LinearOpMode {
             Point LeftBottom = new Point(60, 160);
             Point MiddleTop = new Point(120, 100);
             Point MiddleBottom = new Point(200, 160);
-            Point RightTop = new Point(320, 100);
-            Point RightBottom = new Point(260, 160);
+            Point RightTop = new Point(300, 100);
+            Point RightBottom = new Point(240   , 160);
             int red = 0;
             int green = 0;
             int blue = 0;
@@ -283,62 +283,62 @@ public class LongBlue extends LinearOpMode {
 
     public static void strafeDrive (float distance, double speed) {
 
-        FrontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        FrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        BackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        BackRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        FrontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        FrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        BackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        BackRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         if (realBot == true) {
-            FrontLeft.setTargetPosition(FrontLeft.getCurrentPosition() + (int) (43.47343 * -distance));
-            FrontRight.setTargetPosition(FrontRight.getCurrentPosition() + (int) (43.47343 * distance));
-            BackLeft.setTargetPosition(BackLeft.getCurrentPosition() + (int) (43.47343 * distance));
-            BackRight.setTargetPosition(BackRight.getCurrentPosition() + (int) (43.47343 * -distance));
+//            FrontLeft.setTargetPosition(FrontLeft.getCurrentPosition() + (int) (43.47343 * -distance));
+//            FrontRight.setTargetPosition(FrontRight.getCurrentPosition() + (int) (43.47343 * distance));
+//            BackLeft.setTargetPosition(BackLeft.getCurrentPosition() + (int) (43.47343 * distance));
+//            BackRight.setTargetPosition(BackRight.getCurrentPosition() + (int) (43.47343 * -distance));
         } else {
-            FrontLeft.setTargetPosition(FrontLeft.getCurrentPosition() + (int) (48.30381 * -distance)); //39.12609
-            FrontRight.setTargetPosition(FrontRight.getCurrentPosition() + (int) (48.30381 * distance));
-            BackLeft.setTargetPosition(BackLeft.getCurrentPosition() + (int) (48.30381 * distance));
-            BackRight.setTargetPosition(BackRight.getCurrentPosition() + (int) (48.30381 * -distance));
+//            FrontLeft.setTargetPosition(FrontLeft.getCurrentPosition() + (int) (48.30381 * -distance)); //39.12609
+//            FrontRight.setTargetPosition(FrontRight.getCurrentPosition() + (int) (48.30381 * distance));
+//            BackLeft.setTargetPosition(BackLeft.getCurrentPosition() + (int) (48.30381 * distance));
+//            BackRight.setTargetPosition(BackRight.getCurrentPosition() + (int) (48.30381 * -distance));
         }
 
-        FrontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        FrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        BackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        BackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        FrontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        FrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        BackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        BackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        FrontLeft.setPower(speed);
-        FrontRight.setPower(speed);
-        BackLeft.setPower(speed);
-        BackRight.setPower(speed);
+//        FrontLeft.setPower(speed);
+//        FrontRight.setPower(speed);
+//        BackLeft.setPower(speed);
+//        BackRight.setPower(speed);
     }
 
     public static void straightDrive (float distance, double speed) {
 
-        FrontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        FrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        BackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        BackRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        FrontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        FrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        BackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        BackRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         if (realBot == true) {
-            FrontLeft.setTargetPosition(FrontLeft.getCurrentPosition() + (int) (43.47343 * -distance));
-            FrontRight.setTargetPosition(FrontRight.getCurrentPosition() + (int) (43.47343 * -distance));
-            BackLeft.setTargetPosition(BackLeft.getCurrentPosition() + (int) (43.47343 * -distance));
-            BackRight.setTargetPosition(BackRight.getCurrentPosition() + (int) (43.47343 * -distance));
+//            FrontLeft.setTargetPosition(FrontLeft.getCurrentPosition() + (int) (43.47343 * -distance));
+//            FrontRight.setTargetPosition(FrontRight.getCurrentPosition() + (int) (43.47343 * -distance));
+//            BackLeft.setTargetPosition(BackLeft.getCurrentPosition() + (int) (43.47343 * -distance));
+//            BackRight.setTargetPosition(BackRight.getCurrentPosition() + (int) (43.47343 * -distance));
         } else {
-            FrontLeft.setTargetPosition(FrontLeft.getCurrentPosition() + (int) (48.30381 * -distance));
-            FrontRight.setTargetPosition(FrontRight.getCurrentPosition() + (int) (48.30381 * -distance));
-            BackLeft.setTargetPosition(BackLeft.getCurrentPosition() + (int) (48.30381 * -distance));
-            BackRight.setTargetPosition(BackRight.getCurrentPosition() + (int) (48.30381 * -distance));
+//            FrontLeft.setTargetPosition(FrontLeft.getCurrentPosition() + (int) (48.30381 * -distance));
+//            FrontRight.setTargetPosition(FrontRight.getCurrentPosition() + (int) (48.30381 * -distance));
+//            BackLeft.setTargetPosition(BackLeft.getCurrentPosition() + (int) (48.30381 * -distance));
+//            BackRight.setTargetPosition(BackRight.getCurrentPosition() + (int) (48.30381 * -distance));
         }
 
-        FrontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        FrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        BackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        BackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        FrontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        FrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        BackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        BackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        FrontLeft.setPower(speed);
-        FrontRight.setPower(speed);
-        BackLeft.setPower(speed);
-        BackRight.setPower(speed);
+//        FrontLeft.setPower(speed);
+//        FrontRight.setPower(speed);
+//        BackLeft.setPower(speed);
+//        BackRight.setPower(speed);
     }
 }
 
