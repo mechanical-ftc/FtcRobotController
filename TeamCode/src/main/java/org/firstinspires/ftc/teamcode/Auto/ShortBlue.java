@@ -21,10 +21,10 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class ShortBlue extends LinearOpMode {
 
     OpenCvWebcam webcam;
-    public static DcMotor FrontLeft = null;
-    public static DcMotor FrontRight = null;
-    public static DcMotor BackLeft = null;
-    public static DcMotor BackRight = null;
+//    public static DcMotor FrontLeft = null;
+//    public static DcMotor FrontRight = null;
+//    public static DcMotor BackLeft = null;
+//    public static DcMotor BackRight = null;
 //    public static DcMotor Launcher = null;
     public static int position = -1;
 
@@ -35,29 +35,29 @@ public class ShortBlue extends LinearOpMode {
 
         /* this is setting the name of the motor used in the code
         equal to the name of that motor in the robot configuration*/
-        FrontLeft = hardwareMap.get(DcMotor.class, "FL");
-        FrontRight = hardwareMap.get(DcMotor.class, "FR");
-        BackLeft = hardwareMap.get(DcMotor.class, "BL");
-        BackRight = hardwareMap.get(DcMotor.class, "BR");
+//        FrontLeft = hardwareMap.get(DcMotor.class, "FL");
+//        FrontRight = hardwareMap.get(DcMotor.class, "FR");
+//        BackLeft = hardwareMap.get(DcMotor.class, "BL");
+//        BackRight = hardwareMap.get(DcMotor.class, "BR");
 //        Lift = hardwareMap.get(DcMotor.class, "Lift");
 //        Claw = hardwareMap.get(DcMotor.class, "Claw");
 //        Launcher = hardwareMap.get(DcMotor.class, "PlaneLauncher");
 
         //this sets the direction that the motors spin
-        FrontLeft.setDirection(DcMotor.Direction.FORWARD);
-        FrontRight.setDirection(DcMotor.Direction.REVERSE);
-        BackLeft.setDirection(DcMotor.Direction.FORWARD);
-        BackRight.setDirection(DcMotor.Direction.REVERSE);
+//        FrontLeft.setDirection(DcMotor.Direction.FORWARD);
+//        FrontRight.setDirection(DcMotor.Direction.REVERSE);
+//        BackLeft.setDirection(DcMotor.Direction.FORWARD);
+//        BackRight.setDirection(DcMotor.Direction.REVERSE);
 //        Lift.setDirection(DcMotor.Direction.FORWARD);
 //        Claw.setDirection(DcMotor.Direction.FORWARD);
 //        Launcher.setDirection(DcMotor.Direction.FORWARD);
 
 
         //this resets the encoders to zero, so that the recordings are accurate
-        FrontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        FrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        BackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        BackRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        FrontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        FrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        BackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        BackRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //        Lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //        Claw.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //        Launcher.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -65,26 +65,26 @@ public class ShortBlue extends LinearOpMode {
 
         /*this sets up the movement so that anytime the motors are used
         it will use encoders*/
-        FrontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        FrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        BackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        BackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        FrontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        FrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        BackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        BackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //        Lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //        Claw.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //        Launcher.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
-        //this sets the motors to immediately brake when power is zero
-        FrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        FrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        BackLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        BackRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-
-        //this makes sure that the motor do not move before they are set to
-        FrontLeft.setPower(0);
-        FrontRight.setPower(0);
-        BackLeft.setPower(0);
-        BackRight.setPower(0);
+//        //this sets the motors to immediately brake when power is zero
+//        FrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+//        FrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+//        BackLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+//        BackRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+//
+//        //this makes sure that the motor do not move before they are set to
+//        FrontLeft.setPower(0);
+//        FrontRight.setPower(0);
+//        BackLeft.setPower(0);
+//        BackRight.setPower(0);
 //        Lift.setPower(0);
 //        Claw.setPower(0);
 //        Launcher.setPower(0);
@@ -95,7 +95,7 @@ public class ShortBlue extends LinearOpMode {
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
-                webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
+                webcam.startStreaming(320, 240, OpenCvCameraRotation.UPSIDE_DOWN);
             }
 
             @Override
@@ -123,12 +123,12 @@ public class ShortBlue extends LinearOpMode {
             sleep(100);
         }
 
-        straightDrive(30, 0.5);
-        sleep(3000);
-        straightDrive(-30, 0.5);
-        sleep(3000);
-        strafeDrive(-36, 0.5);
-        sleep(5000);
+//        straightDrive(30, 0.5);
+//        sleep(3000);
+//        straightDrive(-30, 0.5);
+//        sleep(3000);
+//        strafeDrive(-36, 0.5);
+//        sleep(5000);
     }
 
     class SamplePipeline extends OpenCvPipeline {
@@ -136,6 +136,7 @@ public class ShortBlue extends LinearOpMode {
 
         @Override
         public Mat processFrame(Mat input) {
+            int blueThreshold = 1000;
             Point LeftTop = new Point(0,60);
             Point LeftBottom = new Point(60, 120);
             Point MiddleTop = new Point(120, 60);
@@ -148,7 +149,6 @@ public class ShortBlue extends LinearOpMode {
             int total = 0;
             int totalBlueLeft = 0;
             int totalBlueMiddle = 0;
-            int totalBlueRight = 0;
 
             for (int x = (int)LeftTop.x; x < LeftBottom.x; x++) {
                 for (int y = (int) LeftTop.y; y < LeftBottom.y; y++) {
@@ -180,57 +180,24 @@ public class ShortBlue extends LinearOpMode {
             red /= total;
             green /= total;
             totalBlueMiddle = (blue / total) -red -green;
-            blue =0;
-            total = 0;
-            red = 0;
-            green = 0;
 
-            //Right
-            for (int x = (int)RightBottom.x; x < RightTop.x; x++) {
-                for (int y = (int) RightTop.y; y < RightBottom.y; y++) {
-                    red += input.get(y,x)[0];
-                    green += input.get(y,x)[1];
-                    blue += input.get(y, x)[2];
-                    total++;
-                }
-            }
-
-            red /= total;
-            green /= total;
-            totalBlueRight = (blue / total) -red -green;
-
-            if(totalBlueLeft > totalBlueMiddle && totalBlueLeft > totalBlueRight) {
-                Imgproc.rectangle(
-                        input,
-                        LeftTop,
-                        LeftBottom,
-                        new Scalar(0, 0, 255), 4);
+            if(totalBlueLeft > blueThreshold) {
+                Imgproc.rectangle(input, LeftTop, LeftBottom, new Scalar(0, 0, 255), 4);
                 position = 0;
             }
-
-            if(totalBlueMiddle > totalBlueLeft && totalBlueMiddle > totalBlueRight) {
-                Imgproc.rectangle(
-                        input,
-                        MiddleTop,
-                        MiddleBottom,
-                        new Scalar(255, 0, 255), 4);
-                position = 1;
+            else if(totalBlueMiddle > blueThreshold) {
+                Imgproc.rectangle(input, MiddleTop, MiddleBottom, new Scalar(255, 0, 255), 4);
+                position = 1 ;
             }
-
-            if(totalBlueRight > totalBlueLeft && totalBlueRight > totalBlueMiddle) {
-                Imgproc.rectangle(
-                        input,
-                        RightTop,
-                        RightBottom,
-                        new Scalar(255, 0, 0), 4);
-                position = 2;
+            else {
+                Imgproc.rectangle(input, RightTop, RightBottom, new Scalar(255, 0, 0), 4);
+                position = 2 ;
             }
             return input;
         }
 
         @Override
         public void onViewportTapped() {
-
             viewportPaused = !viewportPaused;
 
             if(viewportPaused) {
@@ -242,49 +209,49 @@ public class ShortBlue extends LinearOpMode {
         }
     }
 
-    public static void strafeDrive (float distance, double speed) {
-
-        FrontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        FrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        BackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        BackRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        FrontLeft.setTargetPosition(FrontLeft.getCurrentPosition() + (int) (43.47343 * -distance));
-        FrontRight.setTargetPosition(FrontRight.getCurrentPosition() + (int) (43.47343 * distance));
-        BackLeft.setTargetPosition(BackLeft.getCurrentPosition() + (int) (43.47343 * distance));
-        BackRight.setTargetPosition(BackRight.getCurrentPosition() + (int) (43.47343 * -distance));
-
-        FrontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        FrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        BackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        BackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        FrontLeft.setPower(speed);
-        FrontRight.setPower(speed);
-        BackLeft.setPower(speed);
-        BackRight.setPower(speed);
-    }
-
-    public static void straightDrive (float distance, double speed) {
-
-        FrontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        FrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        BackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        BackRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        FrontLeft.setTargetPosition(FrontLeft.getCurrentPosition() + (int) (43.47343 * -distance));
-        FrontRight.setTargetPosition(FrontRight.getCurrentPosition() + (int) (43.47343 * -distance));
-        BackLeft.setTargetPosition(BackLeft.getCurrentPosition() + (int) (43.47343 * -distance));
-        BackRight.setTargetPosition(BackRight.getCurrentPosition() + (int) (43.47343 * -distance));
-
-        FrontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        FrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        BackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        BackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        FrontLeft.setPower(speed);
-        FrontRight.setPower(speed);
-        BackLeft.setPower(speed);
-        BackRight.setPower(speed);
-    }
+//    public static void strafeDrive (float distance, double speed) {
+//
+//        FrontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        FrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        BackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        BackRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//
+//        FrontLeft.setTargetPosition(FrontLeft.getCurrentPosition() + (int) (43.47343 * -distance));
+//        FrontRight.setTargetPosition(FrontRight.getCurrentPosition() + (int) (43.47343 * distance));
+//        BackLeft.setTargetPosition(BackLeft.getCurrentPosition() + (int) (43.47343 * distance));
+//        BackRight.setTargetPosition(BackRight.getCurrentPosition() + (int) (43.47343 * -distance));
+//
+//        FrontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        FrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        BackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        BackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//
+//        FrontLeft.setPower(speed);
+//        FrontRight.setPower(speed);
+//        BackLeft.setPower(speed);
+//        BackRight.setPower(speed);
+//    }
+//
+//    public static void straightDrive (float distance, double speed) {
+//
+//        FrontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        FrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        BackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        BackRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//
+//        FrontLeft.setTargetPosition(FrontLeft.getCurrentPosition() + (int) (43.47343 * -distance));
+//        FrontRight.setTargetPosition(FrontRight.getCurrentPosition() + (int) (43.47343 * -distance));
+//        BackLeft.setTargetPosition(BackLeft.getCurrentPosition() + (int) (43.47343 * -distance));
+//        BackRight.setTargetPosition(BackRight.getCurrentPosition() + (int) (43.47343 * -distance));
+//
+//        FrontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        FrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        BackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        BackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//
+//        FrontLeft.setPower(speed);
+//        FrontRight.setPower(speed);
+//        BackLeft.setPower(speed);
+//        BackRight.setPower(speed);
+//    }
 }

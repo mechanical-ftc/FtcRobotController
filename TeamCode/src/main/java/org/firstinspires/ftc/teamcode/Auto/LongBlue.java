@@ -175,22 +175,22 @@ public class LongBlue extends LinearOpMode {
 
         @Override
         public Mat processFrame(Mat input) {
-            Point LeftTop = new Point(60,100);
-            Point LeftBottom = new Point(120, 160);
+            int blueThreshold = 80; //absolute val
+            Point RightTop = new Point(60,100);
+            Point RightBottom = new Point(120, 160);
             Point MiddleTop = new Point(120, 100);
             Point MiddleBottom = new Point(200, 160);
-            Point RightTop = new Point(300, 100);
-            Point RightBottom = new Point(240   , 160);
+            Point LeftTop = new Point(300, 100);
+            Point LeftBottom = new Point(240   , 160);
             int red = 0;
             int green = 0;
             int blue = 0;
             int total = 0;
             int totalBlueLeft = 0;
             int totalBlueMiddle = 0;
-            int totalBlueRight = 0;
 
-            for (int x = (int)LeftTop.x; x < LeftBottom.x; x++) {
-                for (int y = (int) LeftTop.y; y < LeftBottom.y; y++) {
+            for (int x = (int)LeftBottom.x; x > LeftTop.x; x++) {
+                for (int y = (int) LeftBottom.y; y < LeftTop.y; y++) {
                     red += input.get(y,x)[0];
                     green += input.get(y,x)[1];
                     blue += input.get(y, x)[2];
@@ -219,56 +219,20 @@ public class LongBlue extends LinearOpMode {
             red /= total;
             green /= total;
             totalBlueMiddle = (blue / total) -red -green;
-            blue =0;
-            total = 0;
-            red = 0;
-            green = 0;
 
-            //Right
-            for (int x = (int)RightBottom.x; x < RightTop.x; x++) {
-                for (int y = (int) RightTop.y; y < RightBottom.y; y++) {
-                    red += input.get(y,x)[0];
-                    green += input.get(y,x)[1];
-                    blue += input.get(y, x)[2];
-                    total++;
-                }
-            }
-
-            red /= total;
-            green /= total;
-            totalBlueRight = (blue / total) -red -green;
-
-            if(totalBlueLeft > totalBlueRight && totalBlueLeft > totalBlueMiddle) {
-                Imgproc.rectangle(
-                        input,
-                        LeftTop,
-                        LeftBottom,
-                        new Scalar(0, 0, 255), 4);
-            }
-            else if(totalBlueRight > totalBlueLeft && totalBlueRight > totalBlueMiddle){
-//                Imgproc.rectangle(
-//                        input,
-//                        MiddleTop,
-//                        MiddleBottom,
-//                        new Scalar(255, 0, 255), 4);
-                Imgproc.rectangle(
-                        input,
-                        RightTop,
-                        RightBottom,
-                        new Scalar(255, 0, 0), 4);
-            }
-
-            if(totalBlueLeft > totalBlueMiddle && totalBlueLeft > totalBlueRight) {
+            if(Math.abs(totalBlueLeft) > blueThreshold) {
+                Imgproc.rectangle(input, LeftTop, LeftBottom, new Scalar(0, 0, 255), 4);
                 position = 0;
             }
-
-            if(totalBlueMiddle > totalBlueLeft && totalBlueMiddle > totalBlueRight) {
-                position = 1;
+            else if(Math.abs(totalBlueMiddle) > blueThreshold) {
+                Imgproc.rectangle(input, MiddleTop, MiddleBottom, new Scalar(255, 0, 255), 4);
+                position = 1 ;
+            }
+            else {
+                Imgproc.rectangle(input, RightTop, RightBottom, new Scalar(255, 0, 0), 4);
+                position = 2 ;
             }
 
-            if(totalBlueRight > totalBlueLeft && totalBlueRight > totalBlueMiddle) {
-                position = 2;
-            }
             return input;
         }
 
