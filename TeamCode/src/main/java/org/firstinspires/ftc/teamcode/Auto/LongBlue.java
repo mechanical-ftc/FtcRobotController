@@ -20,7 +20,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-@Autonomous(name = "LongBlue")
+@Autonomous(name = "WebShortBlue")
 public class LongBlue extends LinearOpMode {
 
     OpenCvWebcam webcam;
@@ -150,10 +150,26 @@ public class LongBlue extends LinearOpMode {
 
         if (position == 0) {
             webcam.stopStreaming();
-            moveToPosition(10, 0.5);
+            moveToPosition(7,0.5);
+            strafeToPosition(50,0.5);
+            strafeToPosition(-4,0.5);
+            moveToPosition(35,0.5);
         } else if (position == 1) {
             webcam.stopStreaming();
-            moveToPosition(10, 0.5);
+            strafeToPosition(60,0.5);
+            strafeToPosition(-15,0.5);
+            moveToPosition(50,0.5);
+            Lifty(17,0.4);
+            sleep(5000);
+            disy(-0.4);
+            sleep(4000);
+//        Lifty(-1,0.1);
+//        sleep(500);
+//        Lifty(1,.1);
+//        sleep(1000);
+            disy(-0.6);
+            sleep(2000);
+            Lifty(-18, 0.5);
         } else if (position == 2) {
             webcam.stopStreaming();
             moveToPosition(1, 0.5);
@@ -417,25 +433,6 @@ public class LongBlue extends LinearOpMode {
         return;
     }
 
-    //
-    /*
-
-    /*
-    This function is used in the turnWithGyro function to set the
-    encoder mode and turn.
-     */
-    public void turnWithEncoder(double input) {
-        frontleft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backleft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontright.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backright.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //
-        frontleft.setPower(input);
-        backleft.setPower(input);
-        frontright.setPower(-input);
-        backright.setPower(-input);
-    }
-
     public void Lifty(double inches, double speed) {
 
         int move = (int) (Math.round(inches * cpi * meccyBias));
@@ -460,6 +457,27 @@ public class LongBlue extends LinearOpMode {
 
 
     }
+
+    //
+    /*
+
+    /*
+    This function is used in the turnWithGyro function to set the
+    encoder mode and turn.
+     */
+    public void turnWithEncoder(double input) {
+        frontleft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backleft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontright.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backright.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //
+        frontleft.setPower(input);
+        backleft.setPower(input);
+        frontright.setPower(-input);
+        backright.setPower(-input);
+    }
+
+
     public void disy ( double speed){
         servo1.setPower(speed);
         servo2.setPower(speed);

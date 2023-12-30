@@ -27,7 +27,6 @@ public class Drive_TeleOp extends OpMode {
     private DcMotor backRight = null;
 
     private DcMotor liftLeft = null;
-    private DcMotor liftRight =  null;
 
     private CRServo servo1 = null;
     private CRServo servo2 = null;
@@ -38,7 +37,6 @@ public class Drive_TeleOp extends OpMode {
 
     private DcMotor intake = null;
 
-    private CRServo intakeservo = null;
 
     private DcMotor Suspension = null;
 
@@ -64,7 +62,6 @@ public class Drive_TeleOp extends OpMode {
 
         intake = hardwareMap.get(DcMotor.class,"I");
 
-        intakeservo = hardwareMap.get(CRServo.class, "Iservo");
 
         Suspension = hardwareMap.get(DcMotor.class,"Sus");
 
@@ -200,21 +197,21 @@ public class Drive_TeleOp extends OpMode {
             servo3.setPower(0);
         }
 
-        if (gamepad2.left_trigger > 0.1) {
-            intake.setPower(gamepad2.left_trigger);
-        }else if (gamepad2.right_trigger > 0.1 )  {
-            intake.setPower(-gamepad2.right_trigger);
+        if (gamepad2.right_trigger > 0.1) {
+            intake.setPower(gamepad2.right_trigger);
+        }else if (gamepad2.left_trigger > 0.1 )  {
+            intake.setPower(-gamepad2.left_trigger);
         } else {
             intake.setPower(0);
         }
 
-        if (gamepad2.right_stick_y > 0.1){
-            intakeservo.setPower(gamepad2.right_stick_y);
-        } else if (gamepad2.right_stick_y < -0.1) {
-            intakeservo.setPower(gamepad2.right_stick_y);
-        }else {
-            intakeservo.setPower(0);
-        }
+//        if (gamepad2.right_stick_y > 0.1){
+//            intakeservo.setPower(gamepad2.right_stick_y);
+//        } else if (gamepad2.right_stick_y < -0.1) {
+//            intakeservo.setPower(gamepad2.right_stick_y);
+//        }else {
+//            intakeservo.setPower(0);
+//        }
 
         if (gamepad2.dpad_up) {
             servo4.setPower(-1);

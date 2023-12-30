@@ -210,6 +210,9 @@ public class BluePixelAuto extends LinearOpMode {
 
         int move = (int)(Math.round(inches * cpi * meccyBias));
 
+        telemetry.addData("Move: ", move);
+        telemetry.addData("currentPos: ", liftLeft.getCurrentPosition());
+
         liftLeft.setTargetPosition(liftLeft.getCurrentPosition() + move);
 
         //
