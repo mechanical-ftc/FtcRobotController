@@ -134,7 +134,7 @@ public class Drive_TeleOp extends OpMode {
 //        double left_stick_y = -.5;
 //        double right_stick_x = 0;
 
-        double speed = Math.sqrt(2) * Math.pow(Math.pow(-left_stick_x, 4) + Math.pow(-left_stick_y, 4), 0.5);
+        double speed = Math.sqrt(2) * Math.pow(Math.pow(left_stick_x, 4) + Math.pow(-left_stick_y, 4), 0.5);
         double angle = Math.atan2(-left_stick_y, -left_stick_x);
         double rotation = Math.signum(right_stick_x) * Math.pow(right_stick_x, 2);
 
