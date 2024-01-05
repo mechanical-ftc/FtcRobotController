@@ -101,19 +101,21 @@ public class BluePixelAuto extends LinearOpMode {
 
         waitForStart();
         //
-        moveToPosition(43, 0.2);
-        strafeToPosition(55,0.2);
-        Lifty(17,0.4);
-        sleep(5000);
-        disy(-0.4);
-        sleep(4000);
+        moveToPosition(10, 0.2);
+        sleep(1000);
+        strafeToPosition(20,0.2);
+        sleep(1000);
+//        Lifty(17,0.4);
+//        sleep(5000);
+//        disy(-0.4);
+//        sleep(4000);
 //        Lifty(-1,0.1);
 //        sleep(500);
 //        Lifty(1,.1);
 //        sleep(1000);
-        disy(-0.6);
-        sleep(2000);
-        Lifty(-18, 0.5);
+//        disy(-0.6);
+//        sleep(2000);
+//        Lifty(-18, 0.5);
 	//
     }
     //
@@ -167,8 +169,8 @@ public class BluePixelAuto extends LinearOpMode {
         //
         backleft.setTargetPosition(backleft.getCurrentPosition() - move);
         frontleft.setTargetPosition(frontleft.getCurrentPosition() + move);
-        backright.setTargetPosition(backright.getCurrentPosition() + move);
-        frontright.setTargetPosition(frontright.getCurrentPosition() - move);
+        backright.setTargetPosition(backright.getCurrentPosition() - move);
+        frontright.setTargetPosition(frontright.getCurrentPosition() + move);
         //
         frontleft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         frontright.setMode(DcMotor.RunMode.RUN_TO_POSITION);

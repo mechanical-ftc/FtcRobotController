@@ -39,6 +39,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.android.navx_ftc.src.main.java.com.kauailabs.navx.ftc.AHRS;
@@ -62,7 +63,6 @@ import java.text.DecimalFormat;
  */
 
 @TeleOp(name = "Concept: navX Drive Straight PID - Linear", group = "Concept")
-@Disabled
 public class ConceptNavXDriveStraightPIDLinearOp extends LinearOpMode {
 
     DcMotor frontleft;
@@ -92,10 +92,10 @@ public class ConceptNavXDriveStraightPIDLinearOp extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        backleft = hardwareMap.get(DcMotor.class, "backleft");
-        frontleft = hardwareMap.get(DcMotor.class, "frontleft");
-        backright = hardwareMap.get(DcMotor.class, "backright");
-        frontright = hardwareMap.get(DcMotor.class, "frontright");
+        backleft = hardwareMap.get(DcMotor.class, "Bl");
+        frontleft = hardwareMap.get(DcMotor.class, "Fl");
+        backright = hardwareMap.get(DcMotor.class, "Br");
+        frontright = hardwareMap.get(DcMotor.class, "Fr");
 
 
 
@@ -107,10 +107,11 @@ public class ConceptNavXDriveStraightPIDLinearOp extends LinearOpMode {
         frontleft.setDirection(DcMotor.Direction.FORWARD);
         backright.setDirection(DcMotor.Direction.REVERSE);
         frontright.setDirection(DcMotor.Direction.REVERSE);
-        /* If possible, use encoders when driving, as it results in more */
-        /* predictable drive system response.                           */
-        //leftMotor.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-        //rightMotor.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+
+        frontright.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontleft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backleft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backright.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         /* Create a PID Controller which uses the Yaw Angle as input. */
         yawPIDController = new navXPIDController( navx_device,
@@ -148,7 +149,7 @@ public class ConceptNavXDriveStraightPIDLinearOp extends LinearOpMode {
         navXPIDController.PIDResult yawPIDResult = new navXPIDController.PIDResult();
 
         /* Drive straight forward at 1/2 of full drive speed */
-        double drive_speed = 0.5;
+        double drive_speed = 0.2;
 
         DecimalFormat df = new DecimalFormat("#.##");
 
@@ -186,5 +187,8 @@ public class ConceptNavXDriveStraightPIDLinearOp extends LinearOpMode {
             navx_device.close();
             telemetry.addData("LinearOp", "Complete");
         }
+    }
+
+    private class RunMode {
     }
 }

@@ -67,6 +67,13 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 @TeleOp(name="Testing TeleOp", group="Linear OpMode")
 public class Testing_Teleop extends LinearOpMode {
 
+    enum SpeedMode {
+        FAST_MODE,
+        SLOW_MODE,
+        DEFAULT_MODE;
+    }
+
+
     // Declare OpMode members for each of the 4 motors.
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor FlMotor = null;
@@ -209,6 +216,34 @@ public class Testing_Teleop extends LinearOpMode {
             rightBackPower  = gamepad1.b ? 1.0 : 0.0;  // B gamepad
             */
 
+            SpeedMode speedMode = SpeedMode.SLOW_MODE;
+
+            if (gamepad1.right_trigger > 0.0){
+                speedMode = SpeedMode.FAST_MODE;
+            }
+            else if (gamepad1.right_bumper){
+                speedMode = SpeedMode.SLOW_MODE;
+            }
+            else {
+                speedMode = SpeedMode.DEFAULT_MODE;
+            }
+
+            double scalar;
+            if (speedMode == SpeedMode.FAST_MODE) {
+                scalar = 1;
+            }
+            else if (speedMode == SpeedMode.DEFAULT_MODE) {
+                scalar = 0.6;
+            }
+            else {
+                scalar = 0.2;
+            }
+
+            leftFrontPower *= scalar;
+            rightFrontPower *= scalar;
+            leftBackPower *= scalar;
+            rightBackPower *= scalar;
+
             // Send calculated power to wheels
             FlMotor.setPower(leftFrontPower);
             FrMotor.setPower(rightFrontPower);
@@ -221,10 +256,17 @@ public class Testing_Teleop extends LinearOpMode {
             telemetry.addData("Back  left/Right", "%4.2f, %4.2f", leftBackPower, rightBackPower);
             telemetry.update();
 
+
+
+            double liftScalar = 1;
+            if (gamepad2.x){
+                liftScalar = .5;
+            }
+
             if (gamepad2.left_stick_y > 0.1) {
-                liftLeft.setPower(0.6);
+                liftLeft.setPower(0.6 * liftScalar);
             } else if (gamepad2.left_stick_y < -0.1) {
-                liftLeft.setPower(-0.6);
+                liftLeft.setPower(-0.6 * liftScalar);
 
             } else {
                 liftLeft.setPower(0);
@@ -286,5 +328,6 @@ public class Testing_Teleop extends LinearOpMode {
             }else {
                 Shooter.setPower(0);
             }
+
         }
     }}
