@@ -17,7 +17,6 @@ public class RedFarParkAuto extends LinearOpMode {
     private DcMotor backright = null;
 
     private DcMotor liftLeft = null;
-    private DcMotor liftRight =  null;
 
     private CRServo servo1 = null;
     private CRServo servo2 = null;
@@ -50,7 +49,6 @@ public class RedFarParkAuto extends LinearOpMode {
         frontright = hardwareMap.get(DcMotor.class, "Fr");
 
         liftLeft = hardwareMap.get(DcMotor.class,"Ll");
-        liftRight = hardwareMap.get(DcMotor.class,"Rl");
 
         servo1 = hardwareMap.get(CRServo.class, "S1");
         servo2 = hardwareMap.get(CRServo.class, "S2");
@@ -69,7 +67,6 @@ public class RedFarParkAuto extends LinearOpMode {
         frontright.setDirection(DcMotor.Direction.REVERSE);
 
 
-        liftRight.setDirection(DcMotor.Direction.REVERSE);
         liftLeft.setDirection(DcMotor.Direction.FORWARD);
 
 
@@ -91,7 +88,6 @@ public class RedFarParkAuto extends LinearOpMode {
         backright.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         liftLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        liftRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         Suspension.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -105,17 +101,15 @@ public class RedFarParkAuto extends LinearOpMode {
 
         waitForStart();
         //
-        strafeToPosition(-5,0.2);
-        moveToPosition(-90, 0.2);
-//        Lifty(11,0.1);
-//        sleep(2000);
-//        disy(0.2);
-//        sleep(500);
-//        Lifty(-13,0.2);
-//        sleep(1000);
-        turnWithEncoder(-5);
-        sleep(  150);
-        moveToPosition(-20, 0.2);
+        strafeToPosition(-50,0.2);
+        moveToPosition(-110, 0.2);
+        Lifty(17,0.4);
+        sleep(3000);
+        disy(-0.4);
+        sleep(3000);
+        disy(0);
+        Lifty(-10, 0.3);
+        sleep(3000);
 
 
 	//
@@ -129,10 +123,10 @@ public class RedFarParkAuto extends LinearOpMode {
         //
         int move = (int)(Math.round(inches*conversion));
         //
-        backleft.setTargetPosition(backleft.getCurrentPosition() + move);
-        frontleft.setTargetPosition(frontleft.getCurrentPosition() + move);
-        backright.setTargetPosition(backright.getCurrentPosition() + move);
-        frontright.setTargetPosition(frontright.getCurrentPosition() + move);
+        backleft.setTargetPosition(backleft.getCurrentPosition() - move);
+        frontleft.setTargetPosition(frontleft.getCurrentPosition() - move);
+        backright.setTargetPosition(backright.getCurrentPosition() - move);
+        frontright.setTargetPosition(frontright.getCurrentPosition() - move);
         //
         frontleft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         frontright.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -169,8 +163,8 @@ public class RedFarParkAuto extends LinearOpMode {
         //
         int move = (int)(Math.round(inches * cpi * meccyBias));
         //
-        backleft.setTargetPosition(backleft.getCurrentPosition() - move);
-        frontleft.setTargetPosition(frontleft.getCurrentPosition() + move);
+        backleft.setTargetPosition(backleft.getCurrentPosition() + move);
+        frontleft.setTargetPosition(frontleft.getCurrentPosition() - move);
         backright.setTargetPosition(backright.getCurrentPosition() + move);
         frontright.setTargetPosition(frontright.getCurrentPosition() - move);
         //
@@ -210,28 +204,35 @@ public class RedFarParkAuto extends LinearOpMode {
         backright.setPower(-input);
     }
 
+//    public void Lifty(double inches, double speed) {
+//
+//        int move = (int)(Math.round(inches * cpi * meccyBias));
+//
+//        liftLeft.setTargetPosition(liftLeft.getCurrentPosition() + move);
+//        liftRight.setTargetPosition(liftRight.getCurrentPosition() + move);
+//
+//        //
+//        liftLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        liftRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//
+//        //
+//        liftLeft.setPower(speed);
+//        liftRight.setPower(speed);
+//
+//        //
+//        while (liftLeft.isBusy() && liftRight.isBusy() ){}
+//        liftRight.setPower(0);
+//        liftLeft.setPower(0);
+//
+//        return;
+//
+//    }
+//
     public void Lifty(double inches, double speed) {
-
         int move = (int)(Math.round(inches * cpi * meccyBias));
-
         liftLeft.setTargetPosition(liftLeft.getCurrentPosition() + move);
-        liftRight.setTargetPosition(liftRight.getCurrentPosition() + move);
-
-        //
         liftLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        liftRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        //
         liftLeft.setPower(speed);
-        liftRight.setPower(speed);
-
-        //
-        while (liftLeft.isBusy() && liftRight.isBusy() ){}
-        liftRight.setPower(0);
-        liftLeft.setPower(0);
-
-        return;
-
     }
 
     public void disy(double speed) {

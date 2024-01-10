@@ -102,20 +102,14 @@ public class BluePixelAuto extends LinearOpMode {
         waitForStart();
         //
         moveToPosition(10, 0.2);
-        sleep(1000);
         strafeToPosition(20,0.2);
-        sleep(1000);
-//        Lifty(17,0.4);
-//        sleep(5000);
-//        disy(-0.4);
-//        sleep(4000);
-//        Lifty(-1,0.1);
-//        sleep(500);
-//        Lifty(1,.1);
-//        sleep(1000);
-//        disy(-0.6);
-//        sleep(2000);
-//        Lifty(-18, 0.5);
+        Lifty(17,0.4);
+        sleep(3000);
+        disy(-0.4);
+        sleep(3000);
+        disy(0);
+        Lifty(-10,0.3);
+        sleep(3000);
 	//
     }
     //

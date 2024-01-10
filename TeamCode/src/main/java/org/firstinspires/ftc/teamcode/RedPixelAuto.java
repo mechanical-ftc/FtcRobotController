@@ -6,10 +6,8 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@Autonomous(name="RedPixel", group="chad")
+@Autonomous(name="RedPixelAuto", group="chad")
 public class RedPixelAuto extends LinearOpMode {
-    //
-
 
 
     private DcMotor frontleft = null;
@@ -105,17 +103,12 @@ public class RedPixelAuto extends LinearOpMode {
         moveToPosition(-43, 0.2);
         strafeToPosition(55,0.2);
         Lifty(17,0.4);
-        sleep(5000);
+        sleep(3000);
         disy(-0.4);
-        sleep(4000);
-//        Lifty(-1,0.1);
-//        sleep(500);
-//        Lifty(1,.1);
-//        sleep(1000);
-        disy(-0.6);
-        sleep(2000);
-        Lifty(-18, 0.5);
-	//
+        sleep(3000);
+        disy(0);
+        Lifty(-10, 0.3);
+        sleep(3000);
     }
     //
     /*
@@ -126,7 +119,7 @@ public class RedPixelAuto extends LinearOpMode {
         //
         int move = (int)(Math.round(inches*conversion));
         //
-        backleft.setTargetPosition(backleft.getCurrentPosition() + move);
+        backleft.setTargetPosition(backleft.getCurrentPosition()  + move);
         frontleft.setTargetPosition(frontleft.getCurrentPosition() + move);
         backright.setTargetPosition(backright.getCurrentPosition() + move);
         frontright.setTargetPosition(frontright.getCurrentPosition() + move);
@@ -166,8 +159,8 @@ public class RedPixelAuto extends LinearOpMode {
         //
         int move = (int)(Math.round(inches * cpi * meccyBias));
         //
-        backleft.setTargetPosition(backleft.getCurrentPosition() - move);
-        frontleft.setTargetPosition(frontleft.getCurrentPosition() + move);
+        backleft.setTargetPosition(backleft.getCurrentPosition() + move);
+        frontleft.setTargetPosition(frontleft.getCurrentPosition() - move);
         backright.setTargetPosition(backright.getCurrentPosition() + move);
         frontright.setTargetPosition(frontright.getCurrentPosition() - move);
         //
@@ -208,20 +201,10 @@ public class RedPixelAuto extends LinearOpMode {
     }
 
     public void Lifty(double inches, double speed) {
-
         int move = (int)(Math.round(inches * cpi * meccyBias));
-
         liftLeft.setTargetPosition(liftLeft.getCurrentPosition() + move);
-
-        //
         liftLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        //
         liftLeft.setPower(speed);
-
-        //
-
-
     }
 
     public void disy(double speed) {

@@ -102,17 +102,15 @@ public class BlueFarParkAuto extends LinearOpMode {
 
         waitForStart();
         //
-        strafeToPosition(-5,0.2);
-        moveToPosition(90, 0.2);
-//        Lifty(11,0.1);
-//        sleep(2000);
-//        disy(0.2);
-//        sleep(500);
-//        Lifty(-13,0.2);
-//        sleep(1000);
-        turnWithEncoder(5);
-        sleep(  150);
-        moveToPosition(-20, 0.2);
+        strafeToPosition(50,0.2);
+        moveToPosition(-110, 0.2);
+        Lifty(17,0.4);
+        sleep(3000);
+        disy(-0.4);
+        sleep(3000);
+        disy(0);
+        Lifty(-10, 0.3);
+        sleep(3000);
 
 
 	//
@@ -126,9 +124,9 @@ public class BlueFarParkAuto extends LinearOpMode {
         //
         int move = (int)(Math.round(inches*conversion));
         //
-        backleft.setTargetPosition(backleft.getCurrentPosition() + move);
+        backleft.setTargetPosition(backleft.getCurrentPosition() - move);
         frontleft.setTargetPosition(frontleft.getCurrentPosition() + move);
-        backright.setTargetPosition(backright.getCurrentPosition() + move);
+        backright.setTargetPosition(backright.getCurrentPosition() - move);
         frontright.setTargetPosition(frontright.getCurrentPosition() + move);
         //
         frontleft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
