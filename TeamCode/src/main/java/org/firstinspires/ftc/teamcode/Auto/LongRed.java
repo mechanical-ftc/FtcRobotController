@@ -15,7 +15,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
-@Autonomous(name = "LongRed")
+@Autonomous(name = "WebShortRed")
 public class LongRed extends LinearOpMode {
 
     OpenCvWebcam webcam;
@@ -122,12 +122,48 @@ public class LongRed extends LinearOpMode {
             sleep(100);
         }
 
-        straightDrive(30, 0.5);
-        sleep(3000);
-        straightDrive(-27, 0.5);
-        sleep(2000);
-        strafeDrive(86, 0.5);
-        sleep(5000);
+        if (position == 0) {
+            webcam.stopStreaming();
+            moveToPosition(7,0.5);
+            strafeToPosition(-53,0.4);
+            strafeToPosition(6,0.5);
+            moveToPosition(35,0.5);
+            Lifty(17,0.4);
+            sleep(3000);
+            disy(-0.4);
+            sleep(3000);
+            disy(0);
+            Lifty(-10, 0.3);
+            sleep(3000);
+        } else if (position == 1) {
+            webcam.stopStreaming();
+            strafeToPosition(-63,0.5);
+            strafeToPosition(7,0.5);
+            moveToPosition(42,0.5);
+            Lifty(17,0.4);
+            sleep(3000);
+            disy(-0.3);
+            sleep(3000);
+            disy(0);
+            Lifty(-10, 0.3);
+            sleep(3000);
+        } else {
+            webcam.stopStreaming();
+            strafeToPosition(-50, 0.5);
+            moveToPosition(-15, 0.5);
+//            strafeToPosition(-7, 0.5);
+            moveToPosition(35, 0.5);
+            sleep(1000);
+            strafeToPosition(-20, 0.5);
+            moveToPosition(20, 0.5);
+            Lifty(17, 0.4);
+            sleep(2000);
+            disy(-0.3);
+            sleep(3000);
+            disy(0);
+            Lifty(-10, 0.3);
+            sleep(3000);
+        }
     }
 
     class SamplePipeline extends OpenCvPipeline {

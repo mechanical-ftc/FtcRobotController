@@ -131,14 +131,15 @@ public class LongBlue extends LinearOpMode {
         });
 
         waitForStart();
+        while (opModeIsActive()) {
 
-//            telemetry.addData("Frame Count", webcam.getFrameCount());
-//            telemetry.addData("FPS", String.format("%.2f", webcam.getFps()));
-//            telemetry.addData("Total frame time ms", webcam.getTotalFrameTimeMs());
-//            telemetry.addData("Pipeline time ms", webcam.getPipelineTimeMs());
-//            telemetry.addData("Overhead time ms", webcam.getOverheadTimeMs());
-//            telemetry.addData("Theoretical max FPS", webcam.getCurrentPipelineMaxFps());
-//            telemetry.update();
+            telemetry.addData("Frame Count", webcam.getFrameCount());
+            telemetry.addData("FPS", String.format("%.2f", webcam.getFps()));
+            telemetry.addData("Total frame time ms", webcam.getTotalFrameTimeMs());
+            telemetry.addData("Pipeline time ms", webcam.getPipelineTimeMs());
+            telemetry.addData("Overhead time ms", webcam.getOverheadTimeMs());
+            telemetry.addData("Theoretical max FPS", webcam.getCurrentPipelineMaxFps());
+            telemetry.update();
 
         if (gamepad1.a) {
             webcam.stopStreaming();
@@ -151,28 +152,45 @@ public class LongBlue extends LinearOpMode {
         if (position == 0) {
             webcam.stopStreaming();
             moveToPosition(7,0.5);
-            strafeToPosition(50,0.5);
-            strafeToPosition(-4,0.5);
+            strafeToPosition(-53,0.4);
+            strafeToPosition(6,0.5);
             moveToPosition(35,0.5);
-        } else if (position == 1) {
-            webcam.stopStreaming();
-            strafeToPosition(60,0.5);
-            strafeToPosition(-15,0.5);
-            moveToPosition(50,0.5);
             Lifty(17,0.4);
-            sleep(5000);
+            sleep(3000);
             disy(-0.4);
-            sleep(4000);
-//        Lifty(-1,0.1);
-//        sleep(500);
-//        Lifty(1,.1);
-//        sleep(1000);
-            disy(-0.6);
-            sleep(2000);
-            Lifty(-18, 0.5);
-        } else if (position == 2) {
+            sleep(3000);
+            disy(0);
+            Lifty(-10, 0.3);
+            sleep(3000);
+        }
+        else if (position == 1) {
             webcam.stopStreaming();
-            moveToPosition(1, 0.5);
+            strafeToPosition(-63,0.5);
+            strafeToPosition(7,0.5);
+            moveToPosition(42,0.5);
+            Lifty(17,0.4);
+            sleep(3000);
+            disy(-0.3);
+            sleep(3000);
+            disy(0);
+            Lifty(-10, 0.3);
+            sleep(3000);
+        } else {
+            webcam.stopStreaming();
+            strafeToPosition(-50, 0.5);
+            moveToPosition(-15, 0.5);
+//            strafeToPosition(-7, 0.5);
+            moveToPosition(35, 0.5);
+            sleep(1000);
+            strafeToPosition(-20, 0.5);
+            moveToPosition(20, 0.5);
+            Lifty(17,0.4);
+            sleep(2000);
+            disy(-0.3);
+            sleep(3000);
+            disy(0);
+            Lifty(-10, 0.3);
+            sleep(3000);
         }
     }
 
@@ -183,8 +201,8 @@ public class LongBlue extends LinearOpMode {
         public Mat processFrame(Mat input) {
             Point LeftTop = new Point(0, 100);
             Point LeftBottom = new Point(60, 160);
-            Point MiddleTop = new Point(80, 60);
-            Point MiddleBottom = new Point(160, 120);
+            Point MiddleTop = new Point(170, 80);
+            Point MiddleBottom = new Point(230, 140);
             Point RightTop = new Point(300, 100);
             Point RightBottom = new Point(240, 160);
             int red = 0;
@@ -244,45 +262,42 @@ public class LongBlue extends LinearOpMode {
             green /= total;
             totalBlueRight = (blue / total) - red - green;
 
-            if (totalBlueLeft > totalBlueMiddle && totalBlueLeft > totalBlueRight) {
-                Imgproc.rectangle(
-                        input,
-                        LeftTop,
-                        LeftBottom,
-                        new Scalar(0, 0, 255), 4);
+           // if (totalBlueLeft > totalBlueMiddle && totalBlueLeft > totalBlueRight) {
+//                Imgproc.rectangle(
+//                        input,
+//                        LeftTop,
+//                        LeftBottom,
+//                        new Scalar(0, 0, 255), 4);
+//          //  }
+//
+//           // if (totalBlueMiddle > totalBlueLeft && totalBlueMiddle > totalBlueRight) {
+//                Imgproc.rectangle(
+//                        input,
+//                        MiddleTop,
+//                        MiddleBottom,
+//                        new Scalar(255, 0, 255), 4);
+//           // }
+//
+////            if (totalBlueRight > totalBlueLeft && totalBlueRight > totalBlueMiddle) {
+//                Imgproc.rectangle(
+//                        input,
+//                        RightTop,
+//                        RightBottom,
+//                        new Scalar(255, 0, 0), 4);
+            //}
+
+            if(totalBlueLeft > -80) {
+                Imgproc.rectangle(input, LeftTop, LeftBottom, new Scalar(0, 0, 255), 4);
                 position = 0;
             }
-
-            if (totalBlueMiddle > totalBlueLeft && totalBlueMiddle > totalBlueRight) {
-                Imgproc.rectangle(
-                        input,
-                        MiddleTop,
-                        MiddleBottom,
-                        new Scalar(255, 0, 255), 4);
-                position = 1;
+            else if(totalBlueMiddle > -80) {
+                Imgproc.rectangle(input, MiddleTop, MiddleBottom, new Scalar(255, 0, 255), 4);
+                position = 1 ;
             }
-
-            if (totalBlueRight > totalBlueLeft && totalBlueRight > totalBlueMiddle) {
-                Imgproc.rectangle(
-                        input,
-                        RightTop,
-                        RightBottom,
-                        new Scalar(255, 0, 0), 4);
-                position = 2;
+            else {
+                Imgproc.rectangle(input, RightTop, RightBottom, new Scalar(255, 0, 0), 4);
+                position = 2 ;
             }
-
-//            if(Math.abs(totalBlueLeft) > -80) {
-//                Imgproc.rectangle(input, LeftTop, LeftBottom, new Scalar(0, 0, 255), 4);
-//                position = 0;
-//            }
-//            else if(Math.abs(totalBlueMiddle) > -80) {
-//                Imgproc.rectangle(input, MiddleTop, MiddleBottom, new Scalar(255, 0, 255), 4);
-//                position = 1 ;
-//            }
-//            else {
-//                Imgproc.rectangle(input, RightTop, RightBottom, new Scalar(255, 0, 0), 4);
-//                position = 2 ;
-//            }
 
             return input;
         }
@@ -411,8 +426,8 @@ public class LongBlue extends LinearOpMode {
         //
         backleft.setTargetPosition(backleft.getCurrentPosition() - move);
         frontleft.setTargetPosition(frontleft.getCurrentPosition() + move);
-        backright.setTargetPosition(backright.getCurrentPosition() + move);
-        frontright.setTargetPosition(frontright.getCurrentPosition() - move);
+        backright.setTargetPosition(backright.getCurrentPosition() - move);
+        frontright.setTargetPosition(frontright.getCurrentPosition() + move);
         //
         frontleft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         frontright.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -434,22 +449,12 @@ public class LongBlue extends LinearOpMode {
     }
 
     public void Lifty(double inches, double speed) {
-
         int move = (int) (Math.round(inches * cpi * meccyBias));
-
         liftLeft.setTargetPosition(liftLeft.getCurrentPosition() + move);
-
-
-        //
         liftLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-
-        //
         liftLeft.setPower(speed);
-
-        //
         while (liftLeft.isBusy()) {
-            liftLeft.setPower(0);
+            liftLeft.setPower(speed);
         }
 
 
