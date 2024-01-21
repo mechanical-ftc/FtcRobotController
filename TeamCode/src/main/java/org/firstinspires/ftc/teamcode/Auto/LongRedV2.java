@@ -4,10 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.WebcamExample;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.core.Scalar;
@@ -18,10 +16,8 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-
-@Autonomous(name = "WebShortBlue")
-public class LongBlue extends LinearOpMode {
+@Autonomous(name = "WebShortRed")
+public class LongRedV2 extends LinearOpMode {
 
     OpenCvWebcam webcam;
     private DcMotor frontleft = null;
@@ -115,7 +111,7 @@ public class LongBlue extends LinearOpMode {
         backright.setPower(0);
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+        webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 2"), cameraMonitorViewId);
         webcam.setPipeline(new SamplePipeline());
         webcam.setMillisecondsPermissionTimeout(5000); // Timeout for obtaining permission is configurable. Set before opening.
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
@@ -151,10 +147,11 @@ public class LongBlue extends LinearOpMode {
 
             if (position == 0) {
                 webcam.stopStreaming();
-                moveToPosition(7, 0.5);
-                strafeToPosition(-53, 0.4);
-                strafeToPosition(6, 0.5);
-                moveToPosition(35, 0.5);
+                strafeToPosition(-48, 0.4);
+                moveToPosition(-15, 0.5);
+                strafeToPosition(4, 0.5);
+                moveToPosition(58, 0.5);
+                strafeToPosition(-16,.4);
                 Lifty(17, 0.4);
                 sleep(3000);
                 disy(-0.4);
@@ -162,7 +159,7 @@ public class LongBlue extends LinearOpMode {
                 disy(0);
                 Lifty(-10, 0.3);
                 sleep(3000);
-                strafeToPosition(20, 0.4);
+                strafeToPosition(30, 0.4);
                 sleep(15000);
             } else if (position == 1) {
                 webcam.stopStreaming();
@@ -180,21 +177,18 @@ public class LongBlue extends LinearOpMode {
                 sleep(15000);
             } else {
                 webcam.stopStreaming();
-                strafeToPosition(-48, 0.5);
-                moveToPosition(-15, 0.5);
-            strafeToPosition(7, 0.5);
-                moveToPosition(35, 0.5);
-                sleep(1000);
-                strafeToPosition(-20, 0.5);
-                moveToPosition(20, 0.5);
-                Lifty(17, 0.4);
-                sleep(2000);
-                disy(-0.3);
+                moveToPosition(10, 0.4);
+                strafeToPosition(-53, 0.4);
+                strafeToPosition(15, 0.4);
+                moveToPosition(35, 0.4);
+                Lifty(17, 0.3);
+                sleep(3000);
+                disy(-0.4);
                 sleep(3000);
                 disy(0);
                 Lifty(-10, 0.3);
                 sleep(3000);
-                strafeToPosition(30, 0.4);
+                strafeToPosition(20, 0.4);
                 sleep(15000);
             }
         }
@@ -205,68 +199,91 @@ public class LongBlue extends LinearOpMode {
 
         @Override
         public Mat processFrame(Mat input) {
-            Point LeftTop = new Point(0, 100);
-            Point LeftBottom = new Point(60, 160);
-            Point MiddleTop = new Point(170, 80);
-            Point MiddleBottom = new Point(230, 140);
-            Point RightTop = new Point(300, 100);
-            Point RightBottom = new Point(240, 160);
+            Point LeftBox_topLeftCorner = new Point(0, 100);
+            int LeftBoxWidth = 60;
+            int LeftBoxHeight = 60;
+
+            Point MiddleBox_topLeftCorner = new Point(80, 80);
+            int MidBoxWidth = 60;
+            int MidBoxHeight = 60;
+
+            Point RightBox_topRightCorner = new Point(320, 80);
+            int RightBoxWidth = 60;
+            int RightBoxHeight = 60;
+
+            Point LeftTop = LeftBox_topLeftCorner; // I"m too laxy to change the names below
+            Point MiddleTop = MiddleBox_topLeftCorner;
+            Point RightTop = RightBox_topRightCorner;
+
+            Point LeftBottom = new Point(LeftBox_topLeftCorner.x + LeftBoxWidth,
+                                      LeftBox_topLeftCorner.y + LeftBoxHeight); // bottomright corner
+            Point MiddleBottom = new Point(MiddleBox_topLeftCorner.x + MidBoxWidth,
+                                        MiddleBox_topLeftCorner.y + MidBoxHeight); // bottomright corner
+            Point RightBottom = new Point(RightBox_topRightCorner.x - RightBoxWidth,
+                                        RightBox_topRightCorner.y + RightBoxHeight); // bottomleft corner
+
+//            Point LeftTop = new Point(0, 100); // topleft corner
+//            Point LeftBottom = new Point(60, 160); // bottomright corner
+//            Point MiddleTop = new Point(170, 80); // topleft ccorner
+//            Point MiddleBottom = new Point(230, 140); // bottomright corner
+//            Point RightTop = new Point(320, 100); // topright corner (???????? why though)
+//            Point RightBottom = new Point(260, 160); // bottomleft corner
             int red = 0;
             int green = 0;
             int blue = 0;
             int total = 0;
-            int totalBlueLeft = 0;
-            int totalBlueMiddle = 0;
-            int totalBlueRight = 0;
+            int totalRedLeft = 0;
+            int totalRedMiddle = 0;
+            int totalRedRight = 0;
 
             for (int x = (int) LeftTop.x; x < LeftBottom.x; x++) {
                 for (int y = (int) LeftTop.y; y < LeftBottom.y; y++) {
-                    red += input.get(y, x)[0];
+                    blue += input.get(y, x)[0];
                     green += input.get(y, x)[1];
-                    blue += input.get(y, x)[2];
+                    red += input.get(y, x)[2];
                     total++;
                 }
             }
 
-            red /= total;
+            blue /= total;
             green /= total;
-            totalBlueLeft = (blue / total) - red - green;
-            blue = 0;
-            total = 0;
+            totalRedLeft = (red / total) - blue - green;
             red = 0;
+            total = 0;
+            blue = 0;
             green = 0;
 
             //Middle
             for (int x = (int) MiddleTop.x; x < MiddleBottom.x; x++) {
                 for (int y = (int) MiddleTop.y; y < MiddleBottom.y; y++) {
-                    red += input.get(y, x)[0];
+                    blue += input.get(y, x)[0];
                     green += input.get(y, x)[1];
-                    blue += input.get(y, x)[2];
+                    red += input.get(y, x)[2];
                     total++;
                 }
             }
 
-            red /= total;
+            blue /= total;
             green /= total;
-            totalBlueMiddle = (blue / total) - red - green;
-            blue = 0;
-            total = 0;
+            totalRedMiddle = (red / total) - blue - green;
             red = 0;
+            total = 0;
+            blue = 0;
             green = 0;
 
             //Right
             for (int x = (int) RightBottom.x; x < RightTop.x; x++) {
                 for (int y = (int) RightTop.y; y < RightBottom.y; y++) {
-                    red += input.get(y, x)[0];
+                    blue += input.get(y, x)[0];
                     green += input.get(y, x)[1];
-                    blue += input.get(y, x)[2];
+                    red += input.get(y, x)[2];
                     total++;
                 }
             }
 
-            red /= total;
+            blue /= total;
             green /= total;
-            totalBlueRight = (blue / total) - red - green;
+            totalRedRight = (red / total) - blue - green;
 
            // if (totalBlueLeft > totalBlueMiddle && totalBlueLeft > totalBlueRight) {
 //                Imgproc.rectangle(
@@ -291,18 +308,21 @@ public class LongBlue extends LinearOpMode {
 //                        RightBottom,
 //                        new Scalar(255, 0, 0), 4);
             //}
+            Imgproc.putText(input, " rightRed: " + totalRedRight, new Point(0, 25), Imgproc.FONT_HERSHEY_PLAIN, 1, new Scalar (0, 255, 0));
+            Imgproc.putText(input, " rightMid: " + totalRedMiddle, new Point(0, 50), Imgproc.FONT_HERSHEY_PLAIN, 1, new Scalar (0, 255, 0));
+            Imgproc.putText(input, " rightLeft: " + totalRedLeft, new Point(0, 75), Imgproc.FONT_HERSHEY_PLAIN, 1, new Scalar (0, 255, 0));
 
-            if(totalBlueLeft > -80) {
-                Imgproc.rectangle(input, LeftTop, LeftBottom, new Scalar(0, 0, 255), 4);
-                position = 0;
+            if(totalRedRight > -130) {
+                Imgproc.rectangle(input, RightTop, RightBottom, new Scalar(0, 0, 255), 4);
+                position = 2;
             }
-            else if(totalBlueMiddle > -80) {
+            else if(totalRedMiddle > -130) {
                 Imgproc.rectangle(input, MiddleTop, MiddleBottom, new Scalar(255, 0, 255), 4);
                 position = 1 ;
             }
             else {
-                Imgproc.rectangle(input, RightTop, RightBottom, new Scalar(255, 0, 0), 4);
-                position = 2 ;
+                Imgproc.rectangle(input, LeftTop, LeftBottom, new Scalar(255, 0, 0), 4);
+                position = 0 ;
             }
 
             return input;
@@ -430,10 +450,10 @@ public class LongBlue extends LinearOpMode {
         //
         int move = (int) (Math.round(inches * cpi * meccyBias));
         //
-        backleft.setTargetPosition(backleft.getCurrentPosition() - move);
-        frontleft.setTargetPosition(frontleft.getCurrentPosition() + move);
-        backright.setTargetPosition(backright.getCurrentPosition() - move);
-        frontright.setTargetPosition(frontright.getCurrentPosition() + move);
+        backleft.setTargetPosition(backleft.getCurrentPosition() + move);
+        frontleft.setTargetPosition(frontleft.getCurrentPosition() - move);
+        backright.setTargetPosition(backright.getCurrentPosition() + move);
+        frontright.setTargetPosition(frontright.getCurrentPosition() - move);
         //
         frontleft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         frontright.setMode(DcMotor.RunMode.RUN_TO_POSITION);
