@@ -131,7 +131,7 @@ public class LongBlue extends LinearOpMode {
         });
 
         waitForStart();
-        while (opModeIsActive()) {
+         {
 
             telemetry.addData("Frame Count", webcam.getFrameCount());
             telemetry.addData("FPS", String.format("%.2f", webcam.getFps()));
