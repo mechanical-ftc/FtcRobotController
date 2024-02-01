@@ -17,7 +17,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-@Autonomous(name = "ShortBlue")
+@Autonomous(name = "WebLongBlue")
 public class ShortBlue extends LinearOpMode {
 
     OpenCvWebcam webcam;

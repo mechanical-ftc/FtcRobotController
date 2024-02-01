@@ -46,7 +46,6 @@ public class LongRedV2 extends LinearOpMode {
     // strafing movement
     //
     Double meccyBias = 0.6;
-
     Double conversion = cpi * bias;
     Boolean exit = false;
     public static int position = -1;
@@ -174,7 +173,7 @@ public class LongRedV2 extends LinearOpMode {
                 Lifty(-10, 0.3);
                 sleep(3000);
                 strafeToPosition(25, 0.4);
-                sleep(15000);
+//                sleep(15000);
             } else {
                 webcam.stopStreaming();
                 moveToPosition(10, 0.4);
@@ -238,9 +237,9 @@ public class LongRedV2 extends LinearOpMode {
 
             for (int x = (int) LeftTop.x; x < LeftBottom.x; x++) {
                 for (int y = (int) LeftTop.y; y < LeftBottom.y; y++) {
-                    blue += input.get(y, x)[0];
+                    red += input.get(y, x)[0];
                     green += input.get(y, x)[1];
-                    red += input.get(y, x)[2];
+                    blue += input.get(y, x)[2];
                     total++;
                 }
             }
@@ -256,9 +255,9 @@ public class LongRedV2 extends LinearOpMode {
             //Middle
             for (int x = (int) MiddleTop.x; x < MiddleBottom.x; x++) {
                 for (int y = (int) MiddleTop.y; y < MiddleBottom.y; y++) {
-                    blue += input.get(y, x)[0];
+                    red += input.get(y, x)[0];
                     green += input.get(y, x)[1];
-                    red += input.get(y, x)[2];
+                    blue += input.get(y, x)[2];
                     total++;
                 }
             }
@@ -274,9 +273,9 @@ public class LongRedV2 extends LinearOpMode {
             //Right
             for (int x = (int) RightBottom.x; x < RightTop.x; x++) {
                 for (int y = (int) RightTop.y; y < RightBottom.y; y++) {
-                    blue += input.get(y, x)[0];
+                    red += input.get(y, x)[0];
                     green += input.get(y, x)[1];
-                    red += input.get(y, x)[2];
+                    blue += input.get(y, x)[2];
                     total++;
                 }
             }
@@ -312,11 +311,11 @@ public class LongRedV2 extends LinearOpMode {
             Imgproc.putText(input, " rightMid: " + totalRedMiddle, new Point(0, 50), Imgproc.FONT_HERSHEY_PLAIN, 1, new Scalar (0, 255, 0));
             Imgproc.putText(input, " rightLeft: " + totalRedLeft, new Point(0, 75), Imgproc.FONT_HERSHEY_PLAIN, 1, new Scalar (0, 255, 0));
 
-            if(totalRedRight > -130) {
+            if(totalRedRight > -60) {
                 Imgproc.rectangle(input, RightTop, RightBottom, new Scalar(0, 0, 255), 4);
                 position = 2;
             }
-            else if(totalRedMiddle > -130) {
+            else if(totalRedMiddle > -60) {
                 Imgproc.rectangle(input, MiddleTop, MiddleBottom, new Scalar(255, 0, 255), 4);
                 position = 1 ;
             }

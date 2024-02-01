@@ -34,6 +34,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /*
@@ -90,7 +91,7 @@ public class Testing_Teleop extends LinearOpMode {
 
     private CRServo Shooter = null;
 
-    private DcMotor intake = null;
+//    private DcMotor intake = null;
 
 
     private DcMotor Suspension = null;
@@ -113,7 +114,7 @@ public class Testing_Teleop extends LinearOpMode {
         servo4 = hardwareMap.get(CRServo.class, "SusExtend");
         Shooter = hardwareMap.get(CRServo.class, "Shooter");
 
-        intake = hardwareMap.get(DcMotor.class,"I");
+//        intake = hardwareMap.get(DcMotor.class,"I");
 
 
         Suspension = hardwareMap.get(DcMotor.class,"Sus");
@@ -273,28 +274,30 @@ public class Testing_Teleop extends LinearOpMode {
 
             }
 
+
+
             if (gamepad2.a) {
-                servo1.setPower(0.3);
-                servo2.setPower(0.3);
-                servo3.setPower(0.3);
+                servo1.setPower(1);
+                servo2.setPower(1);
+                servo3.setPower(1);
 
             }else if (gamepad2.y) {
-                servo1.setPower(-0.3);
-                servo2.setPower(-0.3);
-                servo3.setPower(-0.3);
+                servo1.setPower(-0.2);
+                servo2.setPower(-0.2);
+                servo3.setPower(-0.2);
             }else {
                 servo1.setPower(0);
                 servo2.setPower(0);
                 servo3.setPower(0);
             }
 
-            if (gamepad2.right_trigger > 0.1) {
-                intake.setPower(gamepad2.right_trigger);
-            }else if (gamepad2.left_trigger > 0.1 )  {
-                intake.setPower(-gamepad2.left_trigger);
-            } else {
-                intake.setPower(0);
-            }
+//            if (gamepad2.right_trigger > 0.1) {
+//                intake.setPower(gamepad2.right_trigger);
+//            }else if (gamepad2.left_trigger > 0.1 )  {
+//                intake.setPower(-gamepad2.left_trigger);
+//            } else {
+//                intake.setPower(0);
+//            }
 
 //        if (gamepad2.right_stick_y > 0.1){
 //            intakeservo.setPower(gamepad2.right_stick_y);
@@ -303,7 +306,7 @@ public class Testing_Teleop extends LinearOpMode {
 //        }else {
 //            intakeservo.setPower(0);
 //        }
-
+//end of don't comment out section?
             if (gamepad2.dpad_up) {
                 servo4.setPower(-1);
             } else if (gamepad2.dpad_down) {
