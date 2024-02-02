@@ -153,7 +153,7 @@ public class ShortBlue extends LinearOpMode {
                 moveToPosition(17,.4);
                 strafeToPosition(6, .4);
                 moveToPosition(-25, .4);
-                strafeToPosition(-25,.4);
+                strafeToPosition(-45,.4);
 //                Lifty(17, 0.4);
 //                sleep(3000);
 //                disy(-0.4);
